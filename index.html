@@ -2,50 +2,149 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Winery List Keeper</title>
+    <title>Winery Keeper</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <header>
-      <h2>Top Wineries</h2>
+      <h2>Winery Keeper App</h2>
     </header>
 
-    <main>
-      <h3></h3>
+<main>
+    <div class="card" id="winery-form">
+        <form onsubmit="createWinery(); return false;">
+            <label><strong>Name: </strong></label><br/>
+            <input type="text" id="name"><br/>
 
-      <div class="card" id="winery-form">
-        <! -- New winery form here -->
+            <label><strong>Year Founded: </strong></label><br/>
+            <input type="integer" id="year_founded"><br/>
+
+            <label><strong>Types Offered: </strong></label><br/>
+            <input type="text" id="types_offered"><br/>
+
+            <label><strong>Location: </strong></label><br/>
+            <input type="text" id="location"><br/>
+
+            <label><strong>Affordable: </strong></label><br/>
+            <input type="text" id="affordable"><br/>  
+            <input type="submit" value="Add New Winery" style="color:white;background-color:green">
+        </form><br><br><br>
       </div>
-      <div class="card" data-winery-id="1">
-        <!-- View Record button here -->
-        <!-- Edit Winery button here -->        
-        <!-- Delete Winery button here -->
- 
-        <!-- Winery info -->
-        <div class="additional-info" style="display:none">     
-            <!-- Additional winery info -->
-        </div>
+      <h3>View Wineries</h3>
 
-        <div class="wines" style="display: block;">
-            <div class="card" wine-id="1">
-              <!-- Wine info -->
-              
-              <!-- Edit Wine button here -->
-              <!-- Delete Wine button here -->
-              <!-- Edit Wine form here -->
+    <div class="container" id="wineries-list">
+
+        <div class="card" data-winery-id="1">
+          <button class="view-wines-winery-button" style="background-color:blue">View Winery</button>
+          <button class="edit-winery-button" style="background-color:orange">Edit Winery</button>
+          <button class="delete-winery-button" style="background-color:green">Delete Winery</button>
+          <br><br>
+          <strong class="winery-name"> Joseph Phelps</strong>
+           <br> 
+           <strong>Year Founded:</strong>"1974"<br>
+            <strong>Types Offered:</strong>"Red"<br>
+            <strong>Location:</strong>"St. Helena, CA"<br>
+            <strong>Affordable:</strong>"YES"
+            <br>
+            <div class="additional-info" style="display: none;"></div>
+                <div class="wines" style="display: block;">
+                    <div class="card" wine-id="1">
+                        <i>Last Updated:</i>
+                        "10 days ago" <br>
+                        <strong class="wine" id="title"> Title: </strong>
+                        "King of Wines (Cabernet Sauvignon)"
+                        <br>
+                        <strong class="wine" id="wine-description">Description: </strong>
+                        "Rich with blackberry and cassis, cocoa, graphite, cedar with grainy tannins."
+                        <br>
+                        <button class="edit-wine-button" style="background-color:orange">Edit Wine</button>
+                        <button class="delete-wine-button" style="background-color:red">Delete Wine</button>
+                    </div>
+                    <div class="card" wine-id="2">
+                            <i>Last Updated:</i>
+                            "5 days ago" <br>
+                            <strong> Title: </strong>
+                            "Big and Full Flavored(Syrah)"
+                            <br>
+                            <strong>Description: </strong>
+                            "Deep, dark and concentrated with hints of damsons, plums, pepper, and spice."
+                            <br>
+                            <button class="edit-wine-button" style="background-color:orange">Edit Wine</button>
+                            <button class="delete-wine-button" style="background-color:red">Delete Wine</button>
+
+                            <!--Edit Wine Form Goes Here-->
+                        </div>
+                        <button class="add-wine-button" style="background-color:purple">Add Wine</button>
+
+                </div>
             </div>
-            <!-- Add Wine button here -->
         </div>
-    </div>
+      <br><br> 
 
-      <button class="sort-button" style="color:white;background-color:purple">Sort </button>  
-      <div class="container" id="wineries-list">
-      </div>
-    </main>
+      <div class="card" data-winery-id="2">
+            <button class="view-wines-winery-button" style="background-color:blue">View Winery</button>
+            <button class="edit-winery-button" style="background-color:orange">Edit Winery</button>
+            <button class="delete-winery-button" style="background-color:green">Delete Winery</button>
+            <br><br>
+            <strong class="winery-name"> Patricia Green Cellars</strong>
+             <br> 
+             <strong>Year Founded:</strong>"2000"<br>
+              <strong>Types Offered:</strong>"Pinot Noir"<br>
+              <strong>Location:</strong>"Newberg, Oregon"<br>
+              <strong>Affordable:</strong>"YES"
+              <br>
+              <div class="additional-info" style="display: none;"></div>
+                  <div class="wines" style="display: block;">
+                      <div class="card" wine-id="3">
+                          <i>Last Updated:</i>
+                          "6 days ago" <br>
+                          <strong class="wine" id="title"> Title: </strong>
+                          "Notorious"
+                          <br>
+                          <strong class="wine" id="wine-description">Description: </strong>
+                          "Aged 100% in new French Oak. Vibrant with rich red and black berry fruit, cherry, orange peel, rootbeer, toast, and chocolate."
+                          <br>
+                          <button class="edit-wine-button" style="background-color:orange">Edit Wine</button>
+                          <button class="delete-wine-button" style="background-color:red">Delete Wine</button>
+                      </div>
+                      <div class="card" wine-id="4">
+                            <i>Last Updated:</i>
+                            "5 days ago" <br>
+                            <strong> Title: </strong>
+                            "2017 Wadensvil Block"
+                            <br>
+                            <strong>Description: </strong>
+                            "Juicy, young and vibrant with electric acidity, sourced from a difficult part of the vineyard."
+                            <br>
+                            <button class="edit-wine-button" style="background-color:orange">Edit Wine</button>
+                            <button class="delete-wine-button" style="background-color:red">Delete Wine</button>
+                        </div>
+                        <div class="card" wine-id="5">
+                                <i>Last Updated:</i>
+                                "5 days ago" <br>
+                                <strong class="wine" id="title"> Title: </strong>
+                                "2017 Bishop Block"
+                                <br>
+                                <strong class="wine" id="wine-description">Description: </strong>
+                                "Touch of bitterness but smoothes out over time, with notes of clove and cinnamon under bright rasberry fruit."
+                                <br>
+                                <button class="edit-wine-button" style="background-color:orange">Edit Wine</button>
+                                <button class="delete-wine-button" style="background-color:red">Delete Wine</button>
+                                <!--Edit Wine form goes here-->
+                            </div>
+                            <button class="add-wine-button" style="background-color:purple">Add Wine</button>
+                        
+                  </div>
+              </div>
+          </div>         
+   </div>
 
-    <script src="src/parseDate.js"></script>
-    <script src="src/wine.js"></script>
+</main>
+    <script src=""></script>
+    <script src=""></script>
+    <script src=""></script>
     <script src="src/winery.js"></script>
+    <script src="src/wine.js"></script>
     <script src="src/index.js"></script>
   </body>
 </html>
