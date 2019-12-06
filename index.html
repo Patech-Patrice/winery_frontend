@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Winery List Keeper</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header>
+      <h2>Top Wineries</h2>
+    </header>
+
+    <main>
+      <h3></h3>
+
+      <div class="card" id="winery-form">
+        <! -- New winery form here -->
+      </div>
+      <div class="card" data-winery-id="1">
+        <!-- View Record button here -->
+        <!-- Edit Winery button here -->        
+        <!-- Delete Winery button here -->
+ 
+        <!-- Winery info -->
+        <div class="additional-info" style="display:none">     
+            <!-- Additional winery info -->
+        </div>
+
+        <div class="wines" style="display: block;">
+            <div class="card" wine-id="1">
+              <!-- Wine info -->
+              
+              <!-- Edit Wine button here -->
+              <!-- Delete Wine button here -->
+              <!-- Edit Wine form here -->
+            </div>
+            <!-- Add Wine button here -->
+        </div>
+    </div>
+
+      <button class="sort-button" style="color:white;background-color:purple">Sort </button>  
+      <div class="container" id="wineries-list">
+      </div>
+    </main>
+
+    <script src="src/parseDate.js"></script>
+    <script src="src/wine.js"></script>
+    <script src="src/winery.js"></script>
+    <script src="src/index.js"></script>
+  </body>
+</html>
