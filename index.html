@@ -7,9 +7,10 @@
   </head>
   <body>
     <header>
-      <h2>Winery Keeper App</h2>
+            <h2>Winery Keeper App</h2>
     </header>
 <main>
+        <h2>Winery Keeper App</h2>
     <div class="card" id="winery-form">
         <form onsubmit="createWinery(); return false;">
             <label><strong>Name: </strong></label><br>
@@ -25,8 +26,7 @@
             <input type="text" id="affordable"><br><br> 
             <input type="submit" value="Add New Winery" style="color:white;background-color:green">
         </form><br><br><br>
-      </div>
-      <h3>View Wineries</h3>
+    </div>
 
       <div class="container" id="wineries-list">
           <div class="card" data-winery-id="">
@@ -49,6 +49,35 @@
                 <button class="add-wine-button" id="" style="background-color:green";>Add wine</button>
             </div>
           </div>
+          <div class="card" data-winery-id="1">
+                <button class="view-wines-winery-button" style="background-color:blue">View Winery</button>
+                <button class="edit-winery-button" style="background-color:orange">Edit Winery</button>
+                <button class="delete-winery-button" style="background-color:green">Delete Winery</button>
+                <br><br>
+                <strong class="winery-name"> Joseph Phelps</strong>
+                <br>
+                <strong>Year Founded:</strong>"1974"<br>
+                <strong>Types Offered:</strong>"Red"<br>
+                <br>
+                
+                <div class="additional-info" style="display: none;">
+                <strong>Location:</strong>"St. Helena, CA"<br>
+                <strong>Affordable:</strong>"YES"<br>
+                </div>
+                
+                <div class="wines" style="display: block;">
+                <div class="card" wine-id="1">
+                <i>Last Updated:</i>
+                "10 days ago" <br>
+                <strong> Title: </strong>
+                "King of Wines (Cabernet Sauvignon)"
+                <br>
+                <strong>Description: </strong>
+                "Rich with blackberry and cassis, cocoa, graphite, cedar with grainy tannins."
+                <br>
+                <button class="edit-wine-button" style="background-color:orange">Edit Wine</button>
+                <button class="delete-wine-button" style="background-color:red">Delete Wine</button>
+                </div>
       </div>
       </main>
     <!--<script src=".js"></script>-->
