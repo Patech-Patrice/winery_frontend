@@ -100,16 +100,11 @@ function updateWinery() {
         location: document.getElementById('location').value,
         affordable: document.getElementById('affordable').value,
     }
-
-
     fetch(`http://localhost:3000/api/v1/wineries/${wineryId}`, {
         method: 'PATCH',
         body: JSON.stringify(winery),
         headers: {
             "Access-Control-Allow-Origin": "*",
-           // "Access-Control-Allow-Credentials": "true",
-            //"Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
-            //"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
             'Content-Type': 'application/json', 'Accept': 'application/json'
       }
     
@@ -144,6 +139,16 @@ function editWinery() {
 
 //delete winery
 function deleteWinery() {  
+    let wineryId = this.parentElement.getAttribute('data-winery-id')
+    
+    fetch(`http://localhost:3000/api/v1/wineries/${wineryId}`, {
+        method: 'DELETE'
+      })
+      .then(resp => resp.json())
+      .then(json => {
+          let selectedWinery = document.querySelector(`.card[data-winery-id="${wineryId}"]`) 
+          selectedWinery.remove()
+      })  
 }
 
 //add winery click listeners
