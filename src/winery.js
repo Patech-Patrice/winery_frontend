@@ -112,23 +112,65 @@ function deleteWinery() {
 
 
 function addWineryClickListeners() {
+    document.querySelectorAll('.winery-name').forEach(element => {
+        element.addEventListener("click", showMoreInfo)
+    })
+
+    document.querySelectorAll('.edit-winery-button').forEach(element => {
+        element.addEventListener("click", editWinery)
+    })
+
+    document.querySelectorAll('.delete-winery-button').forEach(element => {
+        element.addEventListener("click", deleteWinery)
+    })
  
 }
 
 function clearWineriesHtml() {
-    
+    let wineriesIndex = document.getElementById("wineries-container")
+    wineriesIndex.innerHTML = ''
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 function renderWinery(data){
     console.log ('my wines here')
+    //const wineriesContainer = document.getElementById('wineries-container')
+    //wineriesContainer.innerHTML = 'here are the wineries'
 
-    //let wineriesIndex = document.getElementById("#wineries-list")
-    //wineriesIndex.HTML= document.getElementById("wineries-list").innerHTML ='thanks';
-    //wineriesIndex.innerHTML = this.wineries.map(winery => `<h3>${winery.name}</h3> <h4>${winery.year_founded}</h4> <h5>${winery.types_offered}</h5>`).join('')
-   
+    let wineriesIndex = document.getElementById("wineries-container")
+    data.forEach((winery) => {
+        let winesIndexHtml = document.createElement('div')
+        winesIndexHtml.className = 'wines'
+        winesIndexHtml.style.display = 'none'
+        let emptyWinesHtml = winesIndexHtml
 
+        let newWinery = new Winery(winery)
+        winesIndexHtml.innerHTML += newWinery.wineryHtml()
+
+        let selectedWineryHtml = document.querySelector('.card[data-winery-id="${newWinery.id}"]')
+        selectedWineryHtml.append(winesIndexHtml.childElementCount ? winesIndexHtml : emptyWinesHtml )
+        selectedWineryHtml.querySelector('.wines').appendChild(newWinery.addWineButton())
+
+        
+    });
 }
 
 

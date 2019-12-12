@@ -51,8 +51,10 @@ function clearWineHtml() {
 
 function renderWine(data){
     console.log ('my wines here')
-
+    
 }
+
+
 
 
 
