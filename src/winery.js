@@ -33,9 +33,15 @@ class Winery {
         <br>`
     }   
     static editWineryForm() {
- 
+        let editWineryFormDiv = document.getElementById('winery-form')
+        editWineryFormDiv.innerHTML = `
+        <form onsubmit="updateWinery(); return false;">` + 
+        wineryFormFields + 
+        `<input type="submit" value="Update">
+        </form>
+        <br>`
     }
-  }
+}
 
     function getWineries() {
         fetch("http://localhost:3000/api/v1/wineries")
@@ -56,8 +62,6 @@ function createWinery() {
         location: document.getElementById('location').value,
         affordable: document.getElementById('affordable').value,
     }
-
-
     fetch("http://localhost:3000/api/v1/wineries", {
         method: 'POST',
         body: JSON.stringify(winery),
@@ -67,7 +71,6 @@ function createWinery() {
         //"Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
         //"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
         'Content-Type': 'application/json', 'Accept': 'application/json'
-
   }
 
     })
@@ -76,26 +79,66 @@ function createWinery() {
         clearWineriesHtml()
          getWineries()
          Winery.newWineryForm()
-         //renderWinery 
       });
-      // need a addWinery function?
-    
 }
 
 //User will be able to click on the name of the winery to view more info
 function showMoreInfo() {
     console.log("this", this)
     console.log(this.parentElement.querySelector('.additional-info'))
-    toggleHideDisplay(this.parentElement.querySelector('.additional-info')) 
-    
+    toggleHideDisplay(this.parentElement.querySelector('.additional-info'))  
 }
 
 // PATCH request to update winery
 function updateWinery() {
+    let wineryId = this.wine.target.wineryId.value
+
+    const winery = {
+        name: document.getElementById('name').value,
+        year_founded: document.getElementById('year_founded').value,
+        types_offered: document.getElementById('types_offered').value,
+        location: document.getElementById('location').value,
+        affordable: document.getElementById('affordable').value,
+    }
+
+
+    fetch(`http://localhost:3000/api/v1/wineries/${wineryId}`, {
+        method: 'PATCH',
+        body: JSON.stringify(winery),
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+           // "Access-Control-Allow-Credentials": "true",
+            //"Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+            //"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+            'Content-Type': 'application/json', 'Accept': 'application/json'
+      }
+    
+    })
+    .then(resp => resp.json() )
+    .then(winery => {
+         clearWineriesHtml()
+         getWineries()
+         Winery.newWineryForm()
+        });
+
 }
 
 //fetch request to edit winery and fill it with current info
 function editWinery() {
+    let wineryId = this.parentElement.getAttribute('data-winery-id')
+
+    // Populates the winery form with previous winery info
+        fetch(`http://localhost:3000/api/v1/wineries/${wineryId}`)
+        .then(resp => resp.json())
+        .then(data => {
+            Winery.editWineryForm()
+            let wineryForm = document.getElementById('winery-form')
+            wineryForm.querySelector('#name').value = data.name 
+            wineryForm.querySelector('#year_founded').value = data.year_founded
+            wineryForm.querySelector('#types_offered').value = data.types_offered
+            wineryForm.querySelector('#location').value = data.location
+            wineryForm.querySelector('#affordable').value = data.affordable
+        })
   
 }
 
