@@ -84,8 +84,8 @@ function createWinery() {
 
 //User will be able to click on the name of the winery to view more info
 function showMoreInfo() {
-    console.log("this", this)
-    console.log(this.parentElement.querySelector('.additional-info'))
+   
+    //console.log(this.parentElement.querySelector('.additional-info'))
     toggleHideDisplay(this.parentElement.querySelector('.additional-info')) 
 
 }
@@ -192,7 +192,7 @@ Winery.prototype.wineryWinesHtml = function () {
 Winery.prototype.wineryHtml = function () {
      
     return `<div class="card" data-winery-id="${this.id}">
-            <button class="view-wines-winery-button" style="background-color:blue">View Winery</button>  
+           
             <button class="edit-winery-button" style="background-color:orange">Edit Winery</button>  
             <button class="delete-winery-button" style="background-color:red">Delete Winery</button>
             <br><br>
@@ -233,10 +233,11 @@ function renderWinery(data){
 
         wineriesIndex.innerHTML += newWinery.wineryHtml()
 
-        //let selectedWineryHtml = document.querySelector('.card[data-winery-id="${newWinery.id}"]')
-        //selectedWineryHtml.append(winesIndexHtml.childElementCount ? winesIndexHtml : emptyWinesHtml )
-        //selectedWineryHtml.querySelector('.wines').appendChild(newWinery.addWineButton())
-
+        let selectedWineryHtml = document.querySelector('.card[data-winery-id="1"')
+        selectedWineryHtml.append(winesIndexHtml.childElementCount ? winesIndexHtml : emptyWinesHtml )
+        selectedWineryHtml.querySelector('.wines').appendChild(newWinery.addWineButton())
+        
+        
         
     });
 }

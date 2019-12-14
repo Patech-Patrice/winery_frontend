@@ -51,9 +51,9 @@ function renderNewWineForm() {
 }
 
 function addWinesClickListeners() {
-    document.querySelectorAll('.view-wines-winery-button').forEach(element => {
-        element.addEventListener('click', viewWineryWines)
-    }) 
+    //document.querySelectorAll('.view-wines-winery-button').forEach(element => {
+      //  element.addEventListener('click', viewWineryWines)
+    //}) 
     document.querySelectorAll('.add-wine-button').forEach(element => {
         element.addEventListener('click', renderNewWineForm)
     })
@@ -84,23 +84,9 @@ function renderWineForm (wineryId) {
     return wineForm 
 }
 
-function populateWineForm(data) { 
-    let wine = new Wine(data)
-    let wineForm = renderWineForm(wine.winery_id)
-    
-    wineForm.querySelector('#title').value = wine.title 
-    wineForm.querySelector('#wine-description').value = event.description 
-    eventForm.querySelector('#wine-wineryId').value = event.dog_id 
-    document.querySelector(`.card[wine-id="${wine.id}"]`).appendChild(wineForm)
-}
-
-
-
 function editWine() {
   
 }
-
-
 
 
 function viewWineryWines() {
