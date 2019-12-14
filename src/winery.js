@@ -37,7 +37,7 @@ class Winery {
         editWineryFormDiv.innerHTML = `
         <form onsubmit="updateWinery(); return false;">` + 
         wineryFormFields + 
-        `<input type="submit" value="Update">
+        `<input type="submit" value="Update Winery">
         </form>
         <br>`
     }
@@ -49,7 +49,7 @@ class Winery {
         .then(data => {
         renderWinery(data)
         addWineriesClickListeners()
-        //addWinesClickListeners()
+        addWinesClickListeners()
         })
     }
 
@@ -86,7 +86,8 @@ function createWinery() {
 function showMoreInfo() {
     console.log("this", this)
     console.log(this.parentElement.querySelector('.additional-info'))
-    toggleHideDisplay(this.parentElement.querySelector('.additional-info'))  
+    toggleHideDisplay(this.parentElement.querySelector('.additional-info')) 
+
 }
 
 // PATCH request to update winery
@@ -122,7 +123,7 @@ function updateWinery() {
 function editWinery() {
     let wineryId = this.parentElement.getAttribute('data-winery-id')
 
-    // Populates the winery form with previous winery info
+    // Fills the winery form with previous winery info
         fetch(`http://localhost:3000/api/v1/wineries/${wineryId}`)
         .then(resp => resp.json())
         .then(data => {
@@ -168,8 +169,8 @@ function addWineriesClickListeners() {
 }
 //clear wineries
 function clearWineriesHtml() {
-    //let wineriesIndex = document.getElementById("wineries-container")
-    //wineriesIndex.innerHTML = ''
+    let wineriesIndex = document.getElementById("wineries-index")
+    wineriesIndex.innerHTML = ''
 }
 Winery.prototype.wineryWinesHtml = function () {
 	let wineryWines = this.wines.map(event => {
@@ -178,7 +179,9 @@ Winery.prototype.wineryWinesHtml = function () {
         <strong>Title: </strong>${wine.title} <br/>
         <strong>Description: </strong>${wine.description} <br/>
         <button class="edit-winery-button" style="background-color:orange">Edit Winery</button>  
-        <button class="delete-winery-button" style="background-color:red">Delete Winery</button>  
+        <button class="delete-winery-button" style="background-color:red">Delete Winery</button>
+        <button class="add-wine-button" style="background-color: blue;">Add Wine
+        </button>  
         </div>
 		`)
     }).join('')
@@ -199,6 +202,8 @@ Winery.prototype.wineryHtml = function () {
             <div class="additional-info" style="display:none">     
             <strong>Location: </strong>${this.location}<br>
             <strong>Affordable: </strong>${this.affordable}<br>
+            <button class="add-wine-button" style="background-color: blue;">Add Wine
+            </button>
             </div>
         </div>` 
 }
@@ -218,7 +223,6 @@ function renderWinery(data){
     console.log ('my wines here')
     let wineriesIndex = document.getElementById("wineries-index")
     data.forEach((winery) => {
-        //let winesIndexHtml = document.createElement('div')
         let winesIndexHtml = document.createElement('div')
         winesIndexHtml.className = 'wines'
         winesIndexHtml.style.display = 'none'
@@ -230,7 +234,7 @@ function renderWinery(data){
         wineriesIndex.innerHTML += newWinery.wineryHtml()
 
         //let selectedWineryHtml = document.querySelector('.card[data-winery-id="${newWinery.id}"]')
-       // selectedWineryHtml.append(winesIndexHtml.childElementCount ? winesIndexHtml : emptyWinesHtml )
+        //selectedWineryHtml.append(winesIndexHtml.childElementCount ? winesIndexHtml : emptyWinesHtml )
         //selectedWineryHtml.querySelector('.wines').appendChild(newWinery.addWineButton())
 
         

@@ -7,7 +7,26 @@ class Wine {
     }
 }
 
-function addWine() {   
+function addWine() {  
+    const wine = {
+        title: document.getElementById('title').value,
+        description: document.getElementById('wine-description').value,
+        winery_id: document.getElementById('wine-wineryId').value 
+    }
+
+    fetch("http://localhost:3000/api/v1/wines", {
+        method: 'POST',
+        body: JSON.stringify(wine),
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            'Content-Type': 'application/json', 'Accept': 'application/json'}
+      })
+    .then(resp => resp.json())
+    .then(wine => {
+         clearWineriesHtml()
+         getWineries()
+         //renderWinesHtml(data)
+      }); 
 
 }
 
@@ -17,7 +36,7 @@ function renderWineFormFields(wineryId) {
     <input type="hidden" id="wine-wineryId" value="${wineryId}">
     <label><strong>Description:   </strong></label><br/>
     <input type="text" id="wine-description"><br/>  
-    <input type="submit" value="Submit" style="color:white;background-color:orange">
+    <input type="submit" value="Add Wine" style="color:white;background-color:orange">
     `  
 }
 
@@ -58,6 +77,25 @@ function deleteWine() {
 function updateWine() {
 }
 
+function renderWineForm (wineryId) {
+    let wineForm = document.createElement('form')
+    wineForm.setAttribute("onsubmit", "updateWine(); return false;")
+    wineForm.innerHTML = renderWineFormFields(wineryId)
+    return wineForm 
+}
+
+function populateWineForm(data) { 
+    let wine = new Wine(data)
+    let wineForm = renderWineForm(wine.winery_id)
+    
+    wineForm.querySelector('#title').value = wine.title 
+    wineForm.querySelector('#wine-description').value = event.description 
+    eventForm.querySelector('#wine-wineryId').value = event.dog_id 
+    document.querySelector(`.card[wine-id="${wine.id}"]`).appendChild(wineForm)
+}
+
+
+
 function editWine() {
   
 }
@@ -70,6 +108,9 @@ function viewWineryWines() {
     let winerySelectedHtml = this.parentElement.querySelector('.wines')
     toggleHideDisplay(winerySelectedHtml)
 }
+
+
+
 
 
 
