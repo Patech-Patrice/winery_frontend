@@ -49,7 +49,6 @@ class Winery {
         .then(data => {
         renderWinery(data)
         addWineriesClickListeners()
-        addWinesClickListeners()
         })
     }
 
@@ -67,9 +66,6 @@ function createWinery() {
         body: JSON.stringify(winery),
         headers: {
         "Access-Control-Allow-Origin": "*",
-       // "Access-Control-Allow-Credentials": "true",
-        //"Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
-        //"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
         'Content-Type': 'application/json', 'Accept': 'application/json'
   }
 
@@ -84,8 +80,6 @@ function createWinery() {
 
 //User will be able to click on the name of the winery to view more info
 function showMoreInfo() {
-   
-    //console.log(this.parentElement.querySelector('.additional-info'))
     toggleHideDisplay(this.parentElement.querySelector('.additional-info')) 
 
 }
@@ -241,7 +235,3 @@ function renderWinery(data){
         
     });
 }
-
-
-
-

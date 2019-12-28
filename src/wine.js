@@ -7,7 +7,7 @@ class Wine {
     }
 }
 
-function addWine() {  
+function addWine() {
     const wine = {
         title: document.getElementById('title').value,
         description: document.getElementById('wine-description').value,
@@ -25,9 +25,20 @@ function addWine() {
     .then(wine => {
          clearWineriesHtml()
          getWineries()
+         addWinesClickListeners()
          //renderWinesHtml(data)
       }); 
+  
+}
 
+function getWines() {
+    fetch("http://localhost:3000/api/v1/wines")
+    .then(resp => resp.json())
+    .then(data => {
+    //renderWinery(data)
+    addWinesClickListeners()
+    renderNewWineForm
+    })
 }
 
 function renderWineFormFields(wineryId) {
@@ -38,54 +49,23 @@ function renderWineFormFields(wineryId) {
     <input type="text" id="wine-description"><br/>  
     <input type="submit" value="Add Wine" style="color:white;background-color:orange">
     `  
-}
+    }
 
 function renderNewWineForm() {
-    let wineryId = this.getAttribute('id')
-    this.style.display = "none"
-    let winesHtml = this.parentElement
-    let wineForm = document.createElement('form')
-    wineForm.setAttribute("onsubmit", "addWine(); return false;")
-    wineForm.innerHTML = renderWineFormFields(wineryId)
-    winesHtml.appendChild(wineForm)
-}
+    console.log('wines go here')
+    }
 
 function addWinesClickListeners() {
-    //document.querySelectorAll('.view-wines-winery-button').forEach(element => {
-      //  element.addEventListener('click', viewWineryWines)
-    //}) 
     document.querySelectorAll('.add-wine-button').forEach(element => {
         element.addEventListener('click', renderNewWineForm)
     })
-    
-    document.querySelectorAll('.edit-wine-button').forEach(element => {
-        element.addEventListener("click", editWine)
-    })
-
-    document.querySelectorAll('.delete-wine-button').forEach(element => {
-        element.addEventListener("click", deleteWine)
-    })
-   
-
 }
 
-function deleteWine() {  
-}
-
-
-
-function updateWine() {
-}
-
-function renderWineForm (wineryId) {
+function renderWineForm (wineryId) { 
     let wineForm = document.createElement('form')
     wineForm.setAttribute("onsubmit", "updateWine(); return false;")
     wineForm.innerHTML = renderWineFormFields(wineryId)
     return wineForm 
-}
-
-function editWine() {
-  
 }
 
 
