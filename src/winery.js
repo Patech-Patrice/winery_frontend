@@ -19,6 +19,7 @@ class Winery {
         this.location = data.location; 
         this.affordable = data.affordable;
         this.wines = data.wines;
+        //this.wineryJSON = data.wineryJSON;
     }
 
     //New Wine Form
@@ -32,25 +33,30 @@ class Winery {
         </form>
         <br>`
     }   
-    static editWineryForm() {
-        let editWineryFormDiv = document.getElementById('winery-form')
-        editWineryFormDiv.innerHTML = `
-        <form onsubmit="updateWinery(); return false;">` + 
-        wineryFormFields + 
-        `<input type="submit" value="Update Winery">
-        </form>
-        <br>`
-    }
+    
 }
 
-    function getWineries() {
-        fetch("http://localhost:3000/api/v1/wineries")
-        .then(resp => resp.json())
-        .then(data => {
-        renderWinery(data)
-        addWineriesClickListeners()
-        })
-    }
+function getWineries() {
+    
+    fetch("http://localhost:3000/api/v1/wineries")
+    .then(resp => resp.json())
+    .then(data => {
+    renderWinery(data)
+    addWineriesClickListeners()
+    viewWinesClickListeners()
+    getWines()
+   })
+}
+
+    //function getWineries() {
+        //fetch("http://localhost:3000/api/v1/wineries")
+        //.then(resp => resp.json())
+        //.then(data => {
+        //renderWinery(data)
+        //addWineriesClickListeners()
+        
+       // })
+   // }
 
     // Create new Winery
 function createWinery() {
@@ -84,53 +90,14 @@ function showMoreInfo() {
 
 }
 
-// PATCH request to update winery
-function updateWinery() {
-    let wineryId = this.wine.target.wineryId.value
+//function showWineInfo() {
+  //  console.log('my wines here')
+   
+     //return wine.wineryWinesHtml
+    //   }
+           
 
-    const winery = {
-        name: document.getElementById('name').value,
-        year_founded: document.getElementById('year_founded').value,
-        types_offered: document.getElementById('types_offered').value,
-        location: document.getElementById('location').value,
-        affordable: document.getElementById('affordable').value,
-    }
-    fetch(`http://localhost:3000/api/v1/wineries/${wineryId}`, {
-        method: 'PATCH',
-        body: JSON.stringify(winery),
-        headers: {
-            "Access-Control-Allow-Origin": "*",
-            'Content-Type': 'application/json', 'Accept': 'application/json'
-      }
-    
-    })
-    .then(resp => resp.json() )
-    .then(winery => {
-         clearWineriesHtml()
-         getWineries()
-         Winery.newWineryForm()
-        });
 
-}
-
-//fetch request to edit winery and fill it with current info
-function editWinery() {
-    let wineryId = this.parentElement.getAttribute('data-winery-id')
-
-    // Fills the winery form with previous winery info
-        fetch(`http://localhost:3000/api/v1/wineries/${wineryId}`)
-        .then(resp => resp.json())
-        .then(data => {
-            Winery.editWineryForm()
-            let wineryForm = document.getElementById('winery-form')
-            wineryForm.querySelector('#name').value = data.name 
-            wineryForm.querySelector('#year_founded').value = data.year_founded
-            wineryForm.querySelector('#types_offered').value = data.types_offered
-            wineryForm.querySelector('#location').value = data.location
-            wineryForm.querySelector('#affordable').value = data.affordable
-        })
-  
-}
 
 //delete winery
 function deleteWinery() {  
@@ -152,42 +119,42 @@ function addWineriesClickListeners() {
       element.addEventListener("click", showMoreInfo)
     })
 
-    document.querySelectorAll('.edit-winery-button').forEach(element => {
-        element.addEventListener("click", editWinery)
-    })
+    //document.querySelectorAll('.edit-winery-button').forEach(element => {
+      //  element.addEventListener("click", editWinery)
+    //})
 
     document.querySelectorAll('.delete-winery-button').forEach(element => {
         element.addEventListener("click", deleteWinery)
     })
- 
+
+   document.querySelectorAll('.view-wine-button').forEach(element => {
+       element.addEventListener("click", renderWinery)
+    })
+   
 }
-//clear wineries
+
+//clears wineries field
 function clearWineriesHtml() {
     let wineriesIndex = document.getElementById("wineries-index")
     wineriesIndex.innerHTML = ''
 }
 Winery.prototype.wineryWinesHtml = function () {
-	let wineryWines = this.wines.map(event => {
+
+	let wineryWines = this.wines.map(wine => {
         return (`
         <div class="card" wine-id="${wine.id}" >
         <strong>Title: </strong>${wine.title} <br/>
-        <strong>Description: </strong>${wine.description} <br/>
-        <button class="edit-winery-button" style="background-color:orange">Edit Winery</button>  
-        <button class="delete-winery-button" style="background-color:red">Delete Winery</button>
-        <button class="add-wine-button" style="background-color: blue;">Add Wine
-        </button>  
+        <strong>Description: </strong>${wine.description} <br/> 
+        <button class="delete-winery-button" style="background-color:red">Delete Winery</button> 
         </div>
 		`)
     }).join('')
-
     return (wineryWines)
 }
 
 Winery.prototype.wineryHtml = function () {
      
-    return `<div class="card" data-winery-id="${this.id}">
-           
-            <button class="edit-winery-button" style="background-color:orange">Edit Winery</button>  
+    return `<div class="card" data-winery-id="${this.id}"> 
             <button class="delete-winery-button" style="background-color:red">Delete Winery</button>
             <br><br>
             <strong class="winery-name">${this.name}</strong> <br>
@@ -196,42 +163,51 @@ Winery.prototype.wineryHtml = function () {
             <div class="additional-info" style="display:none">     
             <strong>Location: </strong>${this.location}<br>
             <strong>Affordable: </strong>${this.affordable}<br>
-            <button class="add-wine-button" style="background-color: blue;">Add Wine
-            </button>
+            <button class="view-wine-button" style="background-color:blue">View Wine</button>
             </div>
+            
         </div>` 
 }
 
-Winery.prototype.addWineButton = function () {
 
-    let addNewWineButton = document.createElement('button')
-    addNewWineButton.className = 'add-wine-button'
-    addNewWineButton.id = this.id 
-    addNewWineButton.innerText = "Add Wine"
-    addNewWineButton.style.backgroundColor = "blue"
-    return addNewWineButton
+Winery.prototype.viewWineButton = function () {
+    let viewWineButton = document.createElement('button')
+    viewWineButton.className = 'view-wine-button'
+    viewWineButton.id = this.id 
+    viewWineButton.innerText = "View Wine"
+    viewWineButton.style.backgroundColor = "blue"
+    return viewWineButton
+
 }
 
 
-function renderWinery(data){
-    console.log ('my wines here')
+
+function renderWinery(data) {
+ 
     let wineriesIndex = document.getElementById("wineries-index")
-    data.forEach((winery) => {
-        let winesIndexHtml = document.createElement('div')
+
+    data.forEach((wineries) => {
+         
+        //for wines
+        let winesIndexHtml = document.getElementById("wines-index")
         winesIndexHtml.className = 'wines'
         winesIndexHtml.style.display = 'none'
         let emptyWinesHtml = winesIndexHtml
 
-        let newWinery = new Winery(winery)
-        winesIndexHtml.innerHTML += newWinery.wineryHtml()
+         //let winesContainer = document.getElementById('wines-container');
+         //winesContainer.innerHTML += 'My Wines'
+
+         // let wine = new Wine(wines)
+
+
+
+        let newWinery = new Winery(wineries)
+         //winesContainer.innerHTML = newWinery.wineryWinesHtml()
+        winesIndexHtml.innerHTML = newWinery.wineryWinesHtml()
 
         wineriesIndex.innerHTML += newWinery.wineryHtml()
-
         let selectedWineryHtml = document.querySelector('.card[data-winery-id="1"')
         selectedWineryHtml.append(winesIndexHtml.childElementCount ? winesIndexHtml : emptyWinesHtml )
-        selectedWineryHtml.querySelector('.wines').appendChild(newWinery.addWineButton())
-        
-        
-        
+        selectedWineryHtml.querySelector('.wines').appendChild(newWinery.viewWineButton())   
     });
 }
