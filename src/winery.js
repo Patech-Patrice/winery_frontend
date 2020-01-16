@@ -12,19 +12,17 @@ const wineryFormFields = `
 
 class Winery {
     constructor(data) {
-        this.id = data.id;
-        this.name = data.name; 
-        this.year_founded = data.year_founded;
-        this.types_offered = data.types_offered;
-        this.location = data.location; 
-        this.affordable = data.affordable;
-        this.wines = data.wines;
+        this.id = data.id
+        this.name = data.name 
+        this.year_founded = data.year_founded
+        this.types_offered = data.types_offered
+        this.location = data.location 
+        this.affordable = data.affordable
+        this.wines = data.wines
         //this.wineryJSON = data.wineryJSON;
     }
 
-    //New Wine Form
-
-    static newWineryForm() {
+static newWineryForm() {
         let newWineryFormDiv = document.getElementById('winery-form')
         newWineryFormDiv.innerHTML = `
         <form onsubmit="createWinery(); return false;">` + 
@@ -36,11 +34,12 @@ class Winery {
     
 }
 
-function getWineries() {
+function getWineries(data) {
     
     fetch("http://localhost:3000/api/v1/wineries")
     .then(resp => resp.json())
     .then(data => {
+        //.then(data.forEach((winery) => {
     renderWinery(data)
     addWineriesClickListeners()
     viewWinesClickListeners()
@@ -48,10 +47,11 @@ function getWineries() {
    })
 }
 
+
     //function getWineries() {
         //fetch("http://localhost:3000/api/v1/wineries")
         //.then(resp => resp.json())
-        //.then(data => {
+        //.then(data.forEach((winery) => {
         //renderWinery(data)
         //addWineriesClickListeners()
         
@@ -72,9 +72,7 @@ function createWinery() {
         body: JSON.stringify(winery),
         headers: {
         "Access-Control-Allow-Origin": "*",
-        'Content-Type': 'application/json', 'Accept': 'application/json'
-  }
-
+        'Content-Type': 'application/json', 'Accept': 'application/json'}
     })
     .then(resp => resp.json() )
     .then(winery => {
@@ -86,13 +84,13 @@ function createWinery() {
 
 //User will be able to click on the name of the winery to view more info
 function showMoreInfo() {
+    console.log("this", this.id)
     toggleHideDisplay(this.parentElement.querySelector('.additional-info')) 
 
 }
 
 //function showWineInfo() {
   //  console.log('my wines here')
-   
      //return wine.wineryWinesHtml
     //   }
            
@@ -140,14 +138,14 @@ function clearWineriesHtml() {
 }
 Winery.prototype.wineryWinesHtml = function () {
 
-	let wineryWines = this.wines.map(wine => {
+    let wineryWines = this.wines.map(wine => {
         return (`
         <div class="card" wine-id="${wine.id}" >
         <strong>Title: </strong>${wine.title} <br/>
         <strong>Description: </strong>${wine.description} <br/> 
         <button class="delete-winery-button" style="background-color:red">Delete Winery</button> 
         </div>
-		`)
+        `)
     }).join('')
     return (wineryWines)
 }
@@ -183,13 +181,14 @@ Winery.prototype.viewWineButton = function () {
 
 
 function renderWinery(data) {
- 
+        console.log(data)
     let wineriesIndex = document.getElementById("wineries-index")
 
-    data.forEach((wineries) => {
+    data.forEach((winery) => {
+        //JSON.parse(data).forEach((winery) => {
          
         //for wines
-        let winesIndexHtml = document.getElementById("wines-index")
+       let winesIndexHtml = document.getElementById("wines-index")
         winesIndexHtml.className = 'wines'
         winesIndexHtml.style.display = 'none'
         let emptyWinesHtml = winesIndexHtml
@@ -197,12 +196,10 @@ function renderWinery(data) {
          //let winesContainer = document.getElementById('wines-container');
          //winesContainer.innerHTML += 'My Wines'
 
-         // let wine = new Wine(wines)
+          //let wine = new Wine(wines)
 
-
-
-        let newWinery = new Winery(wineries)
-         //winesContainer.innerHTML = newWinery.wineryWinesHtml()
+        let newWinery = new Winery(winery)
+       //winesContainer.innerHTML = newWinery.wineryWinesHtml()
         winesIndexHtml.innerHTML = newWinery.wineryWinesHtml()
 
         wineriesIndex.innerHTML += newWinery.wineryHtml()
@@ -211,3 +208,4 @@ function renderWinery(data) {
         selectedWineryHtml.querySelector('.wines').appendChild(newWinery.viewWineButton())   
     });
 }
+

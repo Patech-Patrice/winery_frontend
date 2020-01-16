@@ -28,18 +28,18 @@ document.querySelectorAll('.view-wine-button').forEach(element => {
  })
 }
 
-Wine.prototype.winesHtml = function () {
-	let wines = this.wines.map(event => {
-        return (`
-        <div class="card" wine-id="${wine.id}" >
-        <strong>Title: </strong>${wine.title} <br/>
-        <strong>Description: </strong>${wine.description} <br/> 
-        <button class="delete-winery-button" style="background-color:red">Delete Winery</button> 
-        </div>
-		`)
-    })
-    return (wines)
-}
+//Wine.prototype.winesHtml = function () {
+//	let wines = this.wines.map(event => {
+  //      return (`
+    //    <div class="card" wine-id="${wine.id}" >
+      //  <strong>Title: </strong>${wine.title} <br/>
+        //<strong>Description: </strong>${wine.description} <br/> 
+        //<button class="delete-winery-button" style="background-color:red">Delete Winery</button> 
+        //</div>
+		//`)
+    //})
+    //return (wines)
+//}
 
 
 //function renderWine(data){
@@ -72,9 +72,9 @@ Wine.prototype.winesHtml = function () {
     ///winesContainer.innerHTML = ('My Wines')
 //}
 
-function viewWineryWines(data) {
+function viewWineryWines() {
     console.log('hello')
-    //console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
 
     //let winerySelectedHtml = this.parentElement.querySelector('.wines')
     //toggleHideDisplay(winerySelectedHtml)
