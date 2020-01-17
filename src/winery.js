@@ -19,7 +19,6 @@ class Winery {
         this.location = data.location 
         this.affordable = data.affordable
         this.wines = data.wines
-        //this.wineryJSON = data.wineryJSON;
     }
 
 static newWineryForm() {
@@ -34,12 +33,11 @@ static newWineryForm() {
     
 }
 
-function getWineries(data) {
+function getWineries() {
     
     fetch("http://localhost:3000/api/v1/wineries")
     .then(resp => resp.json())
     .then(data => {
-        //.then(data.forEach((winery) => {
     renderWinery(data)
     addWineriesClickListeners()
     //viewWinesClickListeners()
@@ -48,15 +46,7 @@ function getWineries(data) {
 }
 
 
-    //function getWineries() {
-        //fetch("http://localhost:3000/api/v1/wineries")
-        //.then(resp => resp.json())
-        //.then(data.forEach((winery) => {
-        //renderWinery(data)
-        //addWineriesClickListeners()
-        
-       // })
-   // }
+  
 
     // Create new Winery
 function createWinery() {
@@ -84,9 +74,7 @@ function createWinery() {
 
 //User will be able to click on the name of the winery to view more info
 function showMoreInfo() {
-
     toggleHideDisplay(this.parentElement.querySelector('.additional-info')) 
-
 }
 
 
@@ -136,7 +124,6 @@ Winery.prototype.wineryWinesHtml = function () {
         <div class="card" wine-id="${wine.id}" >
         <strong>Title: </strong>${wine.title} <br/>
         <strong>Description: </strong>${wine.description} <br/> 
-        
         </div>
         `)
     }).join('')
@@ -154,9 +141,7 @@ Winery.prototype.wineryHtml = function () {
             <div class="additional-info" style="display:none">     
             <strong>Location: </strong>${this.location}<br>
             <strong>Affordable: </strong>${this.affordable}<br>
-
-            </div>
-            
+            </div>  
         </div>` 
 }
 
@@ -178,8 +163,6 @@ function renderWinery(data) {
     let wineriesIndex = document.getElementById("wineries-index")
 
     data.forEach((winery) => {
-       
-         
         //for wines
        //let winesIndexHtml = document.getElementById("wines-index")
        let winesIndexHtml = document.createElement("wines-index")

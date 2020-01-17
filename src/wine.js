@@ -5,7 +5,6 @@ class Wine {
         this.title = data.title; 
         this.winery_id = data.winery_id;
         this.description = data.description;
-        this.getWines()
        
     }
 }
@@ -15,7 +14,6 @@ function getWines() {
     .then(resp => resp.json())
     .then(data => {
         console.log(data)
-    //renderWine(data)
     //viewWinesClickListeners()
    })
 }
@@ -28,18 +26,6 @@ function getWines() {
  //})
 //}
 
-
-
-        
-  
-  
-
-
-
-function viewWineryWines() {
-    console.log('hello')
-       
-}
 
 
 
