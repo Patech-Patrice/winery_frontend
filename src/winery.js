@@ -176,10 +176,7 @@ function renderWinery(data) {
         let selectedWineryHtml = document.querySelector(`.card[data-winery-id="${newWinery.id}"]`)
         
         selectedWineryHtml.append(winesIndexHtml.childElementCount ? winesIndexHtml : emptyWinesHtml )
-        //selectedWineryHtml.querySelector('.wines').appendChild(newWinery.addEventButton())
-
-
-
+        
     });
 }
       
